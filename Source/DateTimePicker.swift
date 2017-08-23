@@ -338,7 +338,7 @@ import UIKit
         
         // fill date
         fillDates(fromDate: minimumDate, toDate: maximumDate)
-        updateCollectionView(to: selectedDate)
+        updateCollectionView(to: selectedDate, animated: true)
         
         let formatter = DateFormatter()
         formatter.dateFormat = "dd/MM/YYYY"
@@ -368,9 +368,9 @@ import UIKit
         resetTime()
     }
     
-    func resetTime() {
+    func resetTime(animated: Bool = true) {
         components = calendar.dateComponents([.day, .month, .year, .hour, .minute], from: selectedDate)
-        updateCollectionView(to: selectedDate)
+        updateCollectionView(to: selectedDate, animated: animated)
         if let hour = components.hour {
             var expectedRow = hour + 24
             if is12HourFormat {
@@ -385,17 +385,17 @@ import UIKit
                     expectedRow = 23
                 }
             }
-            hourTableView.selectRow(at: IndexPath(row: expectedRow, section: 0), animated: true, scrollPosition: .middle)
+            hourTableView.selectRow(at: IndexPath(row: expectedRow, section: 0), animated: animated, scrollPosition: .middle)
             if hour >= 12 {
-                amPmTableView.selectRow(at: IndexPath(row: 1, section: 0), animated: true, scrollPosition: .middle)
+                amPmTableView.selectRow(at: IndexPath(row: 1, section: 0), animated: animated, scrollPosition: .middle)
             } else {
-                amPmTableView.selectRow(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .middle)
+                amPmTableView.selectRow(at: IndexPath(row: 0, section: 0), animated: animated, scrollPosition: .middle)
             }
         }
         
         if let minute = components.minute {
             let expectedRow = minute == 0 ? 120 : minute + 60 // workaround for issue when minute = 0
-            minuteTableView.selectRow(at: IndexPath(row: expectedRow, section: 0), animated: true, scrollPosition: .middle)
+            minuteTableView.selectRow(at: IndexPath(row: expectedRow, section: 0), animated: animated, scrollPosition: .middle)
         }
     }
     
@@ -436,16 +436,16 @@ import UIKit
         }
     }
     
-    func updateCollectionView(to currentDate: Date) {
+    func updateCollectionView(to currentDate: Date, animated: Bool) {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd/MM/YYYY"
         for i in 0..<dates.count {
             let date = dates[i]
             if formatter.string(from: date) == formatter.string(from: currentDate) {
                 let indexPath = IndexPath(row: i, section: 0)
-                dayCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+                dayCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: animated)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: { 
-                    self.dayCollectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
+                    self.dayCollectionView.selectItem(at: indexPath, animated: animated, scrollPosition: .centeredHorizontally)
                 })
                 
                 break
