@@ -264,7 +264,7 @@ import UIKit
                                                   width: 60,
                                                   height: doneButton.frame.origin.y - borderBottomView.frame.origin.y - 10))
         hourTableView.rowHeight = 36
-        hourTableView.contentInset = UIEdgeInsetsMake(hourTableView.frame.height / 2, 0, hourTableView.frame.height / 2, 0)
+        hourTableView.contentInset = UIEdgeInsets(top: hourTableView.frame.height / 2, left: 0, bottom: hourTableView.frame.height / 2, right: 0)
         hourTableView.showsVerticalScrollIndicator = false
         hourTableView.separatorStyle = .none
         hourTableView.delegate = self
@@ -278,7 +278,7 @@ import UIKit
                                                     width: 60,
                                                     height: doneButton.frame.origin.y - borderBottomView.frame.origin.y - 10))
         minuteTableView.rowHeight = 36
-        minuteTableView.contentInset = UIEdgeInsetsMake(minuteTableView.frame.height / 2, 0, minuteTableView.frame.height / 2, 0)
+        minuteTableView.contentInset = UIEdgeInsets(top: minuteTableView.frame.height / 2, left: 0, bottom: minuteTableView.frame.height / 2, right: 0)
         minuteTableView.showsVerticalScrollIndicator = false
         minuteTableView.separatorStyle = .none
         minuteTableView.delegate = self
@@ -292,7 +292,7 @@ import UIKit
                                                   width: 64,
                                                   height: doneButton.frame.origin.y - borderBottomView.frame.origin.y - 10))
         amPmTableView.rowHeight = 36
-        amPmTableView.contentInset = UIEdgeInsetsMake(amPmTableView.frame.height / 2, 0, amPmTableView.frame.height / 2, 0)
+        amPmTableView.contentInset = UIEdgeInsets(top: amPmTableView.frame.height / 2, left: 0, bottom: amPmTableView.frame.height / 2, right: 0)
         amPmTableView.showsVerticalScrollIndicator = false
         amPmTableView.separatorStyle = .none
         amPmTableView.delegate = self
@@ -363,7 +363,7 @@ import UIKit
         }, completion: nil)
     }
     
-    func setToday() {
+    @objc func setToday() {
         selectedDate = Date()
         resetTime()
     }
@@ -453,7 +453,7 @@ import UIKit
         }
     }
     
-    public func dismissView(sender: UIButton?=nil) {
+    @objc public func dismissView(sender: UIButton?=nil) {
         UIView.animate(withDuration: 0.3, animations: {
             // animate to show contentView
             self.contentView.frame = CGRect(x: 0,
